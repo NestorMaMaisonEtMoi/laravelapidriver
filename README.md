@@ -15,7 +15,7 @@ Installation using composer:
 composer "nestormamaisonetmoi/laravelapidriver" : "*"
 ```
 
-And add the service provider in `config/app.php`:
+Ajout du service provider dans le fichier `config/app.php`:
 ```php
 Nestor\LaravelApidriver\DatabaseServiceProvider::class
 ```
@@ -24,11 +24,12 @@ Nestor\LaravelApidriver\DatabaseServiceProvider::class
 ----------------
 Change your default database connection name in `config/database.php`:
 
-```php
+```php 
+ OPTIONEL
 'default' => 'api'
 ```
 
-And add a new api server connection:
+Ajout de la configuration vers l'API REST'
 
 ```php
 'api' => [
@@ -39,10 +40,14 @@ And add a new api server connection:
 ]
 ```
 
+Ajout de la configuration pour utiliser le driver dans le nouveau model. Sauf si le driver à été mis par défaut
+```php
+protected $connection = 'api';
+```
 ### Usage
 --------
 
-Create new Model extend Api Eloquent Model:
+Créer un nouveau Model qui étend la class du package Nestor\LaravelApiDriver\Model\Model
 
 ```php
 use Nestor\LaravelApidriver\Model\Model;

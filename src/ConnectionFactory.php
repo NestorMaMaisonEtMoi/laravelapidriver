@@ -5,6 +5,8 @@ namespace Nestor\LaravelApidriver;
 use Illuminate\Database\Connectors\ConnectionFactory as BaseConnectionFactory;
 use Nestor\LaravelApidriver\Connection\ApiConnection;
 use Nestor\LaravelApidriver\Connector\ApiConnector;
+use Illuminate\Database\Connectors\MySqlConnector;
+use Illuminate\Database\MySqlConnection;
 
 class ConnectionFactory extends BaseConnectionFactory
 {
