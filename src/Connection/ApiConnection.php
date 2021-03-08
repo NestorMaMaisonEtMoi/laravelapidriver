@@ -3,7 +3,7 @@
 namespace Nestor\LaravelApidriver\Connection;
 
 use Illuminate\Database\Connection;
-use Hungnguyenba\Apiconnectionservice\Service;
+use Nestor\Apiconnectionservice\Service;
 use Nestor\LaravelApidriver\Grammar\ApiGrammar;
 use Nestor\LaravelApidriver\Processor\ApiProcessor;
 
