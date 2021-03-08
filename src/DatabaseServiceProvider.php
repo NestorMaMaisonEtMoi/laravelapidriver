@@ -1,8 +1,8 @@
 <?php
 
-namespace Hungnguyenba\Apidriver;
+namespace Nestor\LaravelApidriver;
 
-use Hungnguyenba\Apidriver\ConnectionFactory;
+use Nestor\LaravelApidriver\ConnectionFactory;
 use Illuminate\Database\DatabaseServiceProvider as BaseDatabaseServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\DatabaseManager;

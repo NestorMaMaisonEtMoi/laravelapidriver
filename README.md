@@ -1,23 +1,23 @@
 # NOTE:
-This package was only used in my personal projects with special use cases, so you shouldn't use it. I will rewrite it for common use cases when i have rest time.
-Thank you!
+Ce Driver API est développé Nestor Mamaison Et Moi afin de récupérer des models directement à partir d'un API REST 
 
 ----------------------
 
-# API Driver For Laravel 5.2
+# API Driver For Laravel 8
 
 An Eloquent model and Query builder with support for Restful Api Server, using the original Laravel API. This library extends the original Laravel classes, so it uses exactly the same methods.
+
 
 ### Installation
 ---------------
 Installation using composer:
 ```bash
-composer require hungnguyenba/apidriver
+composer "nestormamaisonetmoi/laravelapidriver" : "*"
 ```
 
 And add the service provider in `config/app.php`:
 ```php
-Hungnguyenba\Apidriver\DatabaseServiceProvider::class
+Nestor\LaravelApidriver\DatabaseServiceProvider::class
 ```
 
 ### Configuration
@@ -45,7 +45,7 @@ And add a new api server connection:
 Create new Model extend Api Eloquent Model:
 
 ```php
-use Hungnguyenba\Apidriver\Model\Model;
+use Nestor\LaravelApidriver\Model\Model;
 
 class User extends Model
 {

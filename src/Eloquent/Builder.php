@@ -1,6 +1,6 @@
 <?php
 
-namespace Hungnguyenba\Apidriver\Eloquent;
+namespace Nestor\LaravelApidriver\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder as BaseEloquentBuilder;
 

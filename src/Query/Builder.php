@@ -1,6 +1,6 @@
 <?php
 
-namespace Hungnguyenba\Apidriver\Query;
+namespace Nestor\LaravelApidriver\Query;
 
 use Illuminate\Database\Query\Builder as BaseQueryBuilder;
 

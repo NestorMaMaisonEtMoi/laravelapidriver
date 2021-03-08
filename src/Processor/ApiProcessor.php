@@ -1,6 +1,6 @@
 <?php
 
-namespace Hungnguyenba\Apidriver\Processor;
+namespace Nestor\LaravelApidriver\Processor;
 
 use Illuminate\Database\Query\Grammars\Grammar;
 use Illuminate\Database\Query\Processors\Processor;

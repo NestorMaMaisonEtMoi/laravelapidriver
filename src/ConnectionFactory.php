@@ -1,10 +1,10 @@
 <?php
 
-namespace Hungnguyenba\Apidriver;
+namespace Nestor\LaravelApidriver;
 
 use Illuminate\Database\Connectors\ConnectionFactory as BaseConnectionFactory;
-use Hungnguyenba\Apidriver\Connection\ApiConnection;
-use Hungnguyenba\Apidriver\Connector\ApiConnector;
+use Nestor\LaravelApidriver\Connection\ApiConnection;
+use Nestor\LaravelApidriver\Connector\ApiConnector;
 
 class ConnectionFactory extends BaseConnectionFactory
 {

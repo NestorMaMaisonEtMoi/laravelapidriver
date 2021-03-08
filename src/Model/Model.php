@@ -1,10 +1,10 @@
 <?php
 
-namespace Hungnguyenba\Apidriver\Model;
+namespace Nestor\LaravelApidriver\Model;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
-use Hungnguyenba\Apidriver\Eloquent\Builder;
-use Hungnguyenba\Apidriver\Query\Builder as QueryBuilder;
+use Nestor\LaravelApidriver\Eloquent\Builder;
+use Nestor\LaravelApidriver\Query\Builder as QueryBuilder;
 
 class Model extends BaseModel
 {

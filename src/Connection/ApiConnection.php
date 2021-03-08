@@ -1,11 +1,11 @@
 <?php
 
-namespace Hungnguyenba\Apidriver\Connection;
+namespace Nestor\LaravelApidriver\Connection;
 
 use Illuminate\Database\Connection;
-use Hungnguyenba\Apiconnectionservice\Service;
-use Hungnguyenba\Apidriver\Grammar\ApiGrammar;
-use Hungnguyenba\Apidriver\Processor\ApiProcessor;
+use Nestor\LaravelApidriver\Service;
+use Nestor\LaravelApidriver\Grammar\ApiGrammar;
+use Nestor\LaravelApidriver\Processor\ApiProcessor;
 
 class ApiConnection extends Connection
 {
