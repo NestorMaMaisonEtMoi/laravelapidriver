@@ -1,5 +1,5 @@
 <?php
-namespace Nestor\Curl;
+namespace Nestor\LaravelApidriver\Curl;
 
 trait CurlHelper
 {

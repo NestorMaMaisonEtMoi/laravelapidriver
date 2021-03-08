@@ -1,5 +1,5 @@
 <?php
-namespace Nestor\Curl;
+namespace Nestor\LaravelApidriver\Curl;
 use Illuminate\Support\Arr;
 
 class Curl

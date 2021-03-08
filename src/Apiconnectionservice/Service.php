@@ -1,6 +1,6 @@
 <?php
 
-namespace Nestor\Apiconnectionservice;
+namespace Nestor\LaravelApidriver\Apiconnectionservice;
 
 trait Service
 {

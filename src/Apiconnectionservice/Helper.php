@@ -1,8 +1,8 @@
 <?php
 
-namespace Nestor\Apiconnectionservice;
+namespace Nestor\LaravelApidriver\Apiconnectionservice;
 
-use Nestor\Curl\Curl;
+use Nestor\LaravelApidriver\Curl\Curl;
 
 trait Helper
 {
