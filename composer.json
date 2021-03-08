@@ -2,9 +2,6 @@
     "name": "nestormamaisonetmoi/laravelapidriver",
     "description": "Driver Api LARAVEL pour récupérer les model depuis une API REST",
     "type": "library",
-    "require": {
-        "hungnguyenba/apiconnectionservice": "^0.0.8"
-    },
     "authors": [
         {
             "name": "Pierre-Yves",
