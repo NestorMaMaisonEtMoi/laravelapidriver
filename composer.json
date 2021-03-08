@@ -1,14 +1,14 @@
 {
-    "name": "hungnguyenba/apidriver",
-    "description": "A Api based Eloquent model and Query builder for laravel (Api Eloquent)",
+    "name": "nestormamaisonetmoi/laravelapidriver",
+    "description": "Driver Api LARAVEL pour récupérer les model depuis une API REST",
     "type": "library",
     "require": {
         "hungnguyenba/apiconnectionservice": "^0.0.8"
     },
     "authors": [
         {
-            "name": "bahung1221",
-            "email": "bahung1221@gmail.com"
+            "name": "Pierre-Yves",
+            "email": "pierre-yves@nestormamaisonetmoi.com"
         }
     ],
     "autoload": {
