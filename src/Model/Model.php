@@ -3,6 +3,7 @@
 namespace Nestor\LaravelApidriver\Model;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use Nestor\LaravelApidriver\Connection\ApiConnection;
 use Nestor\LaravelApidriver\Eloquent\Builder;
 use Nestor\LaravelApidriver\Query\Builder as QueryBuilder;
 
@@ -39,7 +40,9 @@ class Model extends BaseModel
         $conn = $this->getConnection();
         
         //custom
-        $conn->setModel(static::class);
+        if( $conn instanceof ApiConnection){
+            $conn->setModel(static::class);
+        }
 
         $grammar = $conn->getQueryGrammar();
 
