@@ -52,23 +52,26 @@ class ApiGrammar extends Grammar
         }
 
         // Check whether a single condition or multiple condition, then change format to multiple condition
-        if (! is_array(head($conditions))) {
+        if ( $conditions && !is_array(head($conditions))) {
             $tmp = $conditions;
             $conditions = [];
             $conditions[] = $tmp;
         }
 
         // Loop and get conditions as array
-        foreach ($conditions as $key => $condition) {
-            $column = $condition['column'];
+        if( $conditions ){
+            foreach ($conditions as $key => $condition) {
+                $column = $condition['column'];
 
-            if (empty($condition['operator'])) {
-                continue;
+                if (empty($condition['operator'])) {
+                    continue;
+                }
+
+                $operator = $condition['operator'] === '=' ? '' : $condition['operator'];
+                $api[$column . $operator] = $condition['value'] ?? null;
             }
-
-            $operator = $condition['operator'] === '=' ? '' : $condition['operator']; 
-            $api[$column . $operator] = $condition['value'] ?? null;
         }
+
         
         // Check limit attribute and add it into query conditions
         if ($query->limit > 0) {
