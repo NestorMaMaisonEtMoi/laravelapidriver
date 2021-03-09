@@ -1,5 +1,5 @@
 # NOTE:
-Ce Driver API est développé Nestor Mamaison Et Moi afin de récupérer des models directement à partir d'un API REST 
+Ce Driver API est développé par Nestor Mamaison Et Moi afin de récupérer des models directement à partir d'une API REST 
 
 ----------------------
 
