@@ -3,6 +3,7 @@
 namespace Nestor\LaravelApidriver\Connection;
 
 use Illuminate\Database\Connection;
+use Illuminate\Support\Arr;
 use Nestor\LaravelApidriver\Apiconnectionservice\Service;
 use Nestor\LaravelApidriver\Grammar\ApiGrammar;
 use Nestor\LaravelApidriver\Processor\ApiProcessor;
@@ -21,6 +22,24 @@ class ApiConnection extends Connection
      */
     public function select($query, $bindings = [], $useReadPdo = true)
     {
+        $selectById = false;
+        $selectForDatatable = false;
+        if( isset( $query["id"] ) && $query["limit"] == "1" && isset( $query["id"] ) ){
+            $query["api"] = $query["api"]. '/' . $query["id"];
+        }elseif( isset( $query["limit"] ) && $query["limit"] > "1" ){
+            $selectForDatatable = true;
+        }else{
+            $selectForDatatable = false;
+        }
+
+        foreach ( $bindings as $binding ){
+            if( strpos( $binding, '=' )  ){
+                $_split = explode( "=", $binding );
+                $query[$_split[0]] = $_split[1];
+            }
+        }
+
+
         if (empty($query) || empty($query['api'])) {
             return [];
         }
@@ -36,15 +55,20 @@ class ApiConnection extends Connection
         // Execute get request from api and receive response data
         $data = $this->get($api, $query, $isGetMetaData);
         // Check flag for get metadata
-        if ($isGetMetaData) {
+        if ($isGetMetaData || (Arr::exists( $data, 'data' ) && $selectForDatatable) ) {
+            //dd( $data );
             $res['total'] = $data['total'];
-            $res['per_page'] = $data['per_page'];
-            $res['current_page'] = $data['current_page'];
+            $res['totalFiltre'] = $data['totalFiltre'];
+            $res['start'] = $data['start'];
+            $res['length'] = $data['length'];
+            /*$res['current_page'] = $data['current_page'];
             $res['last_page'] = $data['last_page'];
             $res['next_page_url'] = $data['next_page_url'];
             $res['prev_page_url'] = $data['prev_page_url'];
             $res['from'] = $data['from'];
-            $res['to'] = $data['to'];
+            $res['to'] = $data['to'];*/
+            $data = $data['data'];
+        }elseif ( $selectForDatatable == false && $selectById == false ){
             $data = $data['data'];
         }
 
@@ -53,6 +77,12 @@ class ApiConnection extends Connection
             $attribute = isset($options['index_by']) ? $options['index_by'] : '';
             $isIdx = ! empty($attribute);
             try {
+                if( $selectById ) {
+                    //dd("Modif");
+                    $dataTmp[] = $data;
+                    //dd($dataTmp);
+                    $data = $dataTmp;
+                }
                 foreach ($data as $record) {
                     if ($isIdx) {
                         $idx = $record[$attribute] ?? null;
@@ -62,7 +92,11 @@ class ApiConnection extends Connection
                     } else {
                         $model = $this->getModel()->fill($record);
                         if ($model->validate()) {
-                            $res['data'][] = $model->toArray();
+                            if( $selectById ){
+                                $res['data'] = $model->toArray();
+                            }else{
+                                $res['data'][] = $model->toArray();
+                            }
                         }
                     }
                 }
@@ -71,7 +105,7 @@ class ApiConnection extends Connection
             }
         }
 
-        return $isGetMetaData ? $res ?? [] : $res['data'] ?? [];
+        return ($isGetMetaData || $selectById || $selectForDatatable )  ? $res ?? [] : $res['data'] ?? [];
     }
 
     /**

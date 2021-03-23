@@ -12,6 +12,15 @@ class Model extends BaseModel
     protected $guarded = array();
 
     /**
+     * Affect la primaryKey en tant que ID, necessaire pour les get by id, delete et put sur l'API
+     * @return mixed
+     */
+    //abstract public function initPrimaryKey();
+    public function initPrimaryKey(){
+        $this->id = $this->getId();
+    }
+
+    /**
      * @inheritDoc Illuminate\Database\Eloquent\Concerns\HasTimestamps
      * Indicates if the model should be timestamped.
      *

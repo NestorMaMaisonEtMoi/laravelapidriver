@@ -93,11 +93,19 @@ trait CurlHelper
      */
     protected function generateHeader(int $type = 1) : array
     {
+
+        //Récupération du Token d'authentification dans la session utilisateur
+        $token = session()->exists( "apiToken" ) ? session("apiToken") : null;
+
+        if( $token == null ){
+            dd( "Le token Api n'est pas initialisé dans la session sous la key : apiToken" );
+        }
+
         $this->header =null;
         $isIp = $type == 2 || $type == 3;
         $headers = array_filter([
             'Content-Type' => 'application/json',
-            'Authorization' => env('API_KEY', 0),
+            'Authorization' => 'Bearer ' . $token,
             'user-token' => function_exists('userId') ? userId() : null,
             'api' => request()->path(),
             'special' => $this->specialTag,

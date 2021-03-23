@@ -94,9 +94,8 @@ class Curl
         if (strlen($query) < 1500) {
             $ch = curl_init($this->getUrl() . $api . $query);
             $response = $this->exec($ch);
-            //dd( $response );
-            //return $this->getAndResetMetaDataFlag() ? $response : array_get($response, 'data', $response);
-            return $this->getAndResetMetaDataFlag() ? $response : Arr::get($response, 'data');
+            //return $this->getAndResetMetaDataFlag() ? $response : Arr::get($response, 'data');
+            return $response;
         } else {
             $input['isGet'] = 1;
             return $this->post($api, $input);
