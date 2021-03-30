@@ -1,6 +1,9 @@
 <?php
 namespace Nestor\LaravelApidriver\Curl;
 
+use App\Models\User;
+use http\Env;
+
 trait CurlHelper
 {
     /**
@@ -93,14 +96,15 @@ trait CurlHelper
      */
     protected function generateHeader(int $type = 1) : array
     {
-
-        //Récupération du Token d'authentification dans la session utilisateur
+        //dd( env('APP_NAME', 'RIEN') );
+        $tokenTest = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb25zdHJ1Y3RldXJJZCI6IlRSRUNPQkFUIiwiY29uc3RydWN0ZXVyTm9tIjoiVHJlY29iYXQiLCJhY2Nlc1R5cGUiOiJBUEkiLCJiZGRJZCI6Im5lc3RvcmJ5dHJlY29iYXR2MiIsImVudGl0ZSI6IkNPTlNUUlVDVEVVUiJ9.ntZugqpakmbrLtUUvAAi2zFirdERRJgThHaJd9tJ70A';
         $token = session()->exists( "apiToken" ) ? session("apiToken") : null;
 
         if( $token == null ){
             dd( "Le token Api n'est pas initialisé dans la session sous la key : apiToken" );
         }
-
+        //dd( $token );
+        //echo( "<script> MONTEST(" . session("apiToken") . ") </script>"  );
         $this->header =null;
         $isIp = $type == 2 || $type == 3;
         $headers = array_filter([
@@ -116,7 +120,7 @@ trait CurlHelper
         foreach ($headers as $key => $value) {
             $this->header[] = $key . ':' . $value;
         }
-
+        //dd( $this->header );
         return $this->header;
     }
 

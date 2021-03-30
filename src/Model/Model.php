@@ -7,8 +7,37 @@ use Nestor\LaravelApidriver\Connection\ApiConnection;
 use Nestor\LaravelApidriver\Eloquent\Builder;
 use Nestor\LaravelApidriver\Query\Builder as QueryBuilder;
 
-class Model extends BaseModel
+abstract class Model extends BaseModel
 {
+
+    /**
+     * @author Pierre-Yves
+     * Attribut permettant de déterminer si une instance de Model et actif ou pas
+     * @var null
+     */
+    protected $actif = null;
+
+    /**
+     * Retourne si oui ou non l'instance est active ou pas
+     * @return mixed
+     * @throws \Exception
+     */
+    public function isActif()
+    {
+        //Si le champs actif est pas défini, on return true.
+        if( $this->actif == null ) return true;
+        return $this[ $this->actif ];
+    }
+
+    /**
+     * Retourne le nom du champs actif du model
+     * @return null
+     */
+    public function getChampActif(){
+        return $this->actif;
+    }
+
+
     protected $guarded = array();
 
     /**
@@ -20,6 +49,7 @@ class Model extends BaseModel
         $this->id = $this->getId();
     }
 
+
     /**
      * @inheritDoc Illuminate\Database\Eloquent\Concerns\HasTimestamps
      * Indicates if the model should be timestamped.
@@ -27,7 +57,7 @@ class Model extends BaseModel
      * @var bool
      */
     public $timestamps = false;
-    
+
      /**
      * Create a new Eloquent query builder for the model.
      *
@@ -47,7 +77,7 @@ class Model extends BaseModel
     protected function newBaseQueryBuilder()
     {
         $conn = $this->getConnection();
-        
+
         //custom
         if( $conn instanceof ApiConnection){
             $conn->setModel(static::class);

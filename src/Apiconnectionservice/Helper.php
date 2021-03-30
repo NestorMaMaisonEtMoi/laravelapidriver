@@ -17,6 +17,7 @@ trait Helper
 
     protected function get(string $api, array $input = [], $isGetMetaData = false) : array
     {
+        //dd( "Helper.php => API : " . $api . " PARAM => " . json_encode( $input ) );
         $tag = $this->getTag($input);
 
         return $this->getCurl()
@@ -35,6 +36,7 @@ trait Helper
 
     protected function put(string $api, $ids, array $input = []) : array
     {
+        //dd( "ApiconnectionService/Helper Je fais un PUT" );
         $tag = $this->getTag($input);
 
         return $this->getCurl()

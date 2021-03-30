@@ -86,6 +86,7 @@ class Curl
      */
     public function get(string $api, array $input = [], $isGetMetaData = false) : array
     {
+        //dd( "Curl.php => API : " . $api . " PARAM => " . json_encode( $input ) );
         if ($isGetMetaData) {
             $this->enableMetaData();
         }
@@ -94,8 +95,11 @@ class Curl
         if (strlen($query) < 1500) {
             $ch = curl_init($this->getUrl() . $api . $query);
             $response = $this->exec($ch);
+            ( $response );
+            //return $this->getAndResetMetaDataFlag() ? $response : array_get($response, 'data', $response);
             //return $this->getAndResetMetaDataFlag() ? $response : Arr::get($response, 'data');
             return $response;
+
         } else {
             $input['isGet'] = 1;
             return $this->post($api, $input);
@@ -122,6 +126,7 @@ class Curl
      */
     public function put(string $api, string $ids, array $input) : array
     {
+        //dd( $this->getUrl() . $api . '/' . $ids );
         $ch = curl_init($this->getUrl() . $api . '/' . $ids);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->filter($input)));

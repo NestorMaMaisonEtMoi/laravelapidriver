@@ -34,16 +34,17 @@ class ApiGrammar extends Grammar
      */
     public function compileSelect(Builder $query)
     {
+        //dd($query);
         if (empty($query->from)) {
             return [];
         }
-        
+
         // Get api string from query
         $api['api'] = $query->from;
-        
+
         // get conditions from wheres attribute
         $conditions = head($query->wheres);
-        
+
         // Check if not nested condition
         if (empty($conditions['query'])) {
 
@@ -72,7 +73,7 @@ class ApiGrammar extends Grammar
             }
         }
 
-        
+
         // Check limit attribute and add it into query conditions
         if ($query->limit > 0) {
             $api['limit'] = $query->limit;
@@ -118,13 +119,13 @@ class ApiGrammar extends Grammar
         if (empty($query) || empty($values)) {
             return [];
         }
-        
+
         // Get condition for update
         $conditions = $this->compileSelect($query);
 
         // Get query
         foreach ($values as $key => $value) {
-           $conditions[$key] = $value; 
+           $conditions[$key] = $value;
         }
 
         return $conditions ?? [];

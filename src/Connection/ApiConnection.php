@@ -24,22 +24,33 @@ class ApiConnection extends Connection
     {
         $selectById = false;
         $selectForDatatable = false;
+
+        //dd($this->getModel()->getPrimaryKey());
+        //dd($query);
+        //dd($query["id"]);
         if( isset( $query["id"] ) && $query["limit"] == "1" && isset( $query["id"] ) ){
+            //dd("Recherche par Id");
+            $selectById = true;
             $query["api"] = $query["api"]. '/' . $query["id"];
         }elseif( isset( $query["limit"] ) && $query["limit"] > "1" ){
+            //dd("Recherche par Id");
             $selectForDatatable = true;
         }else{
             $selectForDatatable = false;
         }
 
+        //dd($selectById);
+        //dd( "ApiConnection.php => API : " . json_encode( $query )  . " PARAM => " . json_encode( $bindings ) );
+        //dd( $bindings[1] );
         foreach ( $bindings as $binding ){
             if( strpos( $binding, '=' )  ){
+                //dd( $binding );
                 $_split = explode( "=", $binding );
                 $query[$_split[0]] = $_split[1];
             }
+
         }
-
-
+        //dd( "ApiConnection.php => API : " . json_encode( $query )  . " PARAM => " . json_encode( $bindings ) );
         if (empty($query) || empty($query['api'])) {
             return [];
         }
@@ -51,11 +62,12 @@ class ApiConnection extends Connection
         // Get flag for get metadata and unset it from query
         $isGetMetaData = ! empty($query['isGetMetaData']) && $query['isGetMetaData'] == 1 ? true : false;
         unset($query['isGetMetaData']);
-        
+
         // Execute get request from api and receive response data
         $data = $this->get($api, $query, $isGetMetaData);
+        //dd( $data );
         // Check flag for get metadata
-        if ($isGetMetaData || (Arr::exists( $data, 'data' ) && $selectForDatatable) ) {
+        if ( $isGetMetaData || (Arr::exists( $data, 'data' ) && $selectForDatatable) ) {
             //dd( $data );
             $res['total'] = $data['total'];
             $res['totalFiltre'] = $data['totalFiltre'];
@@ -71,18 +83,24 @@ class ApiConnection extends Connection
         }elseif ( $selectForDatatable == false && $selectById == false ){
             $data = $data['data'];
         }
-
+        debugbar()->debug( json_encode( $data ) );
+        //dd($data);
         // Validate data and set index
         if (! empty($data)) {
             $attribute = isset($options['index_by']) ? $options['index_by'] : '';
+            //dd( $attribute );
             $isIdx = ! empty($attribute);
+            //dd( $isIdx );
             try {
+                //dd($data);
                 if( $selectById ) {
                     //dd("Modif");
                     $dataTmp[] = $data;
                     //dd($dataTmp);
                     $data = $dataTmp;
                 }
+                debugbar()->debug( $data );
+                //dd($data);
                 foreach ($data as $record) {
                     if ($isIdx) {
                         $idx = $record[$attribute] ?? null;
@@ -90,13 +108,21 @@ class ApiConnection extends Connection
                             $res['data'][$idx] = $this->getModel()->fill($record)->toArray();
                         }
                     } else {
-                        $model = $this->getModel()->fill($record);
+                        //dd($record);
+                        try {
+                            debugbar()->info( $record );
+                            $model = $this->getModel()->fill($record);
+                        }catch (\Exception $e){
+                            dd( $record );
+                        }
+
                         if ($model->validate()) {
                             if( $selectById ){
                                 $res['data'] = $model->toArray();
                             }else{
                                 $res['data'][] = $model->toArray();
                             }
+
                         }
                     }
                 }
@@ -104,7 +130,7 @@ class ApiConnection extends Connection
                 return [];
             }
         }
-
+        //dd($res);
         return ($isGetMetaData || $selectById || $selectForDatatable )  ? $res ?? [] : $res['data'] ?? [];
     }
 
@@ -138,7 +164,10 @@ class ApiConnection extends Connection
      */
     public function update($query, $bindings = [])
     {
+        //dd( "UPDATE - Je vais modifier mon OBJ" );
+        //dd( $query );
         if (empty($query) || empty($query['api']) || empty($query['id'])) {
+            dd("Il manque un champs api ou id : " . json_encode( $query ) . " binding : " . json_encode( $bindings ) );
             return 0;
         }
 
@@ -150,9 +179,11 @@ class ApiConnection extends Connection
         $id = $query['id'];
         unset($query['id']);
 
+        //dd( "api =>" . $api . ", id " . $id . ", query => " . json_encode( $query ) );
+        //debugbar()->debug( "api =>" . $api . ", id " . $id . ", query => " . json_encode( $query ) );
         // Execute put request and get response
         $res = $this->put($api, $id, $query);
-
+        //dd( $res );
         return empty($res) ? 0 : 1;
     }
 
@@ -169,7 +200,7 @@ class ApiConnection extends Connection
         if (empty($api)) {
             return [];
         }
-        
+
         $res = $this->put($api, $ids, $values);
         return $res ?? [];
     }
@@ -183,6 +214,7 @@ class ApiConnection extends Connection
      */
     public function batchUpdate(string $api, array $models)
     {
+        dd("ApiConnectio  BatchUpdate");
         if (empty($models) || empty($api)) {
             return [];
         }
@@ -204,7 +236,7 @@ class ApiConnection extends Connection
      * @return int
      */
     public function delete($query, $bindings = [])
-    {   
+    {
         if (empty($query) || empty($query['api']) || empty($query['id'])) {
             return 0;
         }
@@ -213,7 +245,7 @@ class ApiConnection extends Connection
         $id = $query['id'];
 
         $res = $this->deleteById($api, $id);
-        
+
         return empty($res) ? 0 : 1;
     }
 

@@ -27,7 +27,7 @@ class ConnectionFactory extends BaseConnectionFactory
         if ($this->container->bound($key = "db.connector.{$config['driver']}")) {
             return $this->container->make($key);
         }
-        
+        //dd( $config['driver'] );
         switch ($config['driver']) {
             case 'mysql':
                 return new MySqlConnector;
@@ -62,7 +62,12 @@ class ConnectionFactory extends BaseConnectionFactory
             return $this->container->make($key, [$connection, $database, $prefix, $config]);
         }
 
-        switch ($driver) {
+      /* debugbar()->debug("Create Connexion : " .  $driver );
+       debugbar()->debug("Create Connexion : " .  json_encode( $connection ) );
+        debugbar()->debug("Create database : " .  json_encode( $database ) );
+        debugbar()->debug("Create prefix : " .  json_encode( $prefix ) );
+        debugbar()->debug("Create config : " .  json_encode( $config ) );*/
+       switch ($driver) {
             case 'mysql':
                 return new MySqlConnection($connection, $database, $prefix, $config);
             case 'pgsql':
