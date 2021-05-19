@@ -51,6 +51,7 @@ trait Helper
 
     protected function getCurl()
     {
+        debugbar()->debug( "HOST : " . $this->config['host'] );
         if (empty($this->curl)) {
             $this->curl = new Curl($this->config['host']);
         }

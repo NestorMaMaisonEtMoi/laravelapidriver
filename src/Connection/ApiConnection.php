@@ -81,6 +81,10 @@ class ApiConnection extends Connection
             $res['to'] = $data['to'];*/
             $data = $data['data'];
         }elseif ( $selectForDatatable == false && $selectById == false ){
+            if( Arr::exists( $data, 'data' ) == false ) {
+                debugbar()->error("Impossible de trouver DATA dans la réponse. Réponse de l'api pour : $api " .  json_encode( $query )  . " $isGetMetaData");
+                debugbar()->error($data);
+            }
             $data = $data['data'];
         }
         debugbar()->debug( json_encode( $data ) );
