@@ -21,7 +21,8 @@ class ApiProcessor extends Processor
     {
         $response = $query->getConnection()->insert($sql, $values);
         
-        $id = $response['id'] ?? 0;
+        //$id = $response['id'] ?? 0;
+      $id = $response[ ($sequence == null ? 'id':$sequence) ] ?? 0;
 
         return is_numeric($id) ? (int) $id : $id;
     }
