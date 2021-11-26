@@ -25,7 +25,7 @@ Nestor\LaravelApidriver\DatabaseServiceProvider::class
 Change your default database connection name in `config/database.php`:
 
 ```php 
- OPTIONEL
+ OPTIONNEL
 'default' => 'api'
 ```
 
