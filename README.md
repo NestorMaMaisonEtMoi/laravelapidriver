@@ -12,7 +12,7 @@ An Eloquent model and Query builder with support for Restful Api Server, using t
 ---------------
 Installation using composer:
 ```bash
-composer "nestormamaisonetmoi/laravelapidriver" : "*"
+composer require "nestormamaisonetmoi/laravelapidriver" : "*"
 ```
 
 Ajout du service provider dans le fichier `config/app.php`:
