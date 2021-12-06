@@ -32,7 +32,7 @@ class ApiConnection extends Connection
             //dd("Recherche par Id");
             $selectById = true;
             $query["api"] = $query["api"]. '/' . $query["id"];
-        }elseif( isset( $query["limit"] ) && ( $query["limit"] > "1" || $query["limit"] == "all" ) ){
+        }elseif( isset( $query["limit"] ) && $query["limit"] > "1"  ){
             //dd("Recherche par Id");
             $selectForDatatable = true;
         }else{
