@@ -161,6 +161,11 @@ class Curl
         //dd($response);
         $this->setStatusCode((int) curl_getinfo($ch, CURLINFO_HTTP_CODE));
         curl_close($ch);
-        return $this->success() ? (json_decode($response, true) ?? []) : [];
+        return $this->success() ? (json_decode($response, true) ?? []) : $this->genereException($response);
     }
+    
+    private function genereException( $response ){
+        throw new \Exception( $response );
+    }
+    
 }

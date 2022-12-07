@@ -19,10 +19,14 @@ class ApiProcessor extends Processor
      */
     public function processInsertGetId(Builder $query, $sql, $values, $sequence = null)
     {
+        debugbar()->debug( "--------------> processInsertGetId sur mon api en cours ..." );
+        debugbar()->debug( "-------------->sequence : $sequence" );
         $response = $query->getConnection()->insert($sql, $values);
         
-        $id = $response['id'] ?? 0;
-
+        //$id = $response['id'] ?? 0;
+        $id = $response[ ($sequence == null ? 'id':$sequence) ] ?? 0;
+        debugbar()->debug( "--------------> processInsertGetId sur mon api OK. " . $id );
+      
         return is_numeric($id) ? (int) $id : $id;
     }
 }

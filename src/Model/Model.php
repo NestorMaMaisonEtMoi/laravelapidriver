@@ -17,6 +17,13 @@ abstract class Model extends BaseModel
      */
     protected $actif = null;
 
+     /**
+     * @author Pierre-Yves
+     * Attribut permettant de déterminer si l'objet est propre a nestor. Permet de ne pas donner certain droit
+     * @var null
+     */
+    protected $privateNestor = null;
+    
     /**
      * Retourne si oui ou non l'instance est active ou pas
      * @return mixed
@@ -29,6 +36,7 @@ abstract class Model extends BaseModel
         return $this[ $this->actif ];
     }
 
+    
     /**
      * Retourne le nom du champs actif du model
      * @return null
@@ -37,6 +45,25 @@ abstract class Model extends BaseModel
         return $this->actif;
     }
 
+    /**
+     * Retourne si oui ou non l'instance est propre à nestor ou pas
+     * @return mixed
+     * @throws \Exception
+     */
+    public function isPrivateNestor()
+    {
+        //Si le champs privateNestor n'est pas défini, on return false.
+        if( $this->privateNestor == null ) return false;
+        return $this[ $this->privateNestor ];
+    }
+
+    /**
+     * Retourne le nom du champs private Nestor du model
+     * @return null
+     */
+    public function getChampPrivateNestor(){
+        return $this->privateNestor;
+    }    
 
     protected $guarded = array();
 
