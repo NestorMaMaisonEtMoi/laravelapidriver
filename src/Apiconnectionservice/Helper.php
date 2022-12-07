@@ -44,7 +44,7 @@ trait Helper
             ->put($api, $ids, $this->isValid($input));
     }
 
-    protected function deleteById(string $api, int $id)
+    protected function deleteById(string $api, $id)
     {
         $this->getCurl()->delete($api, $id);
     }

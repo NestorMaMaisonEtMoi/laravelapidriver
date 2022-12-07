@@ -181,7 +181,7 @@ class ApiConnection extends Connection
 
         // Get the id value from query, then unset it
         $id = $query['id'];
-        unset($query['id']);
+        unset( $query['id'] );
 
         //dd( "api =>" . $api . ", id " . $id . ", query => " . json_encode( $query ) );
         //debugbar()->debug( "api =>" . $api . ", id " . $id . ", query => " . json_encode( $query ) );
